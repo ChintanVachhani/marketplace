@@ -1,9 +1,3 @@
-<!--
-design author: W3layouts
-design author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +8,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
     <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        } </script>
     <!-- //for-mobile-apps -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -94,7 +88,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="row">
                                 <div class="multi-gd-img">
                                     <ul class="multi-column-dropdown">
-										<li><a href="">Gizmo Life</a></li>
+                                        <li><a href="">Gizmo Life</a></li>
                                         <li><a href="">Spicy Food</a></li>
                                         <li><a href="">Sidhuz Shop</a></li>
                                         <li><a href="">CoderAbhishekChaudhary</a></li>
@@ -133,100 +127,108 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="clearfix"></div>
                 </div>
             </div>
-<?php 
-$list = array();
-?>
-<?php 
-	$ch = curl_init("http://localhost/buytradesell/products.php");
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$contents = curl_exec ($ch);
-	curl_close($ch);
-	$list1=json_decode($contents,true);
-	$list = array_merge($list, $list1);
-	
-?>
+            <?php
+            $list = array();
+            ?>
+            <?php
+            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            curl_close($ch);
+            $list1 = json_decode($contents, true);
+            $list = array_merge($list, $list1);
 
-<?php 
-	$ch = curl_init("http://localhost/buytradesell/products.php");
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$contents = curl_exec ($ch);
-	$list2=json_decode($contents,true);
-	curl_close($ch);
-	$list = array_merge($list, $list2);
-	
-	
-?>
+            ?>
 
-<?php 
-	$ch = curl_init("http://localhost/buytradesell/products.php");
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$contents = curl_exec ($ch);
-	$list2=json_decode($contents,true);
-	curl_close($ch);
-	$list = array_merge($list, $list2);
-	
-	
-?>
-
-<?php 
-	$ch = curl_init("http://localhost/buytradesell/products.php");
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$contents = curl_exec ($ch);
-	$list2=json_decode($contents,true);
-	curl_close($ch);
-	$list = array_merge($list, $list2);
-	
-	
-?>
-
-<?php 
-	$ch = curl_init("http://localhost/buytradesell/products.php");
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$contents = curl_exec ($ch);
-	$list2=json_decode($contents,true);
-	curl_close($ch);
-	$list = array_merge($list, $list2);
-
-?>
-
-<?php 
+            <?php
+            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list2 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list2);
 
 
-$i = 1;
-foreach ($list as $product) {
-    if($i % 3 == 1) {
-					echo "<div class='agile_top_brands_grids'>";
-				}	
-				$id = $product['product_id'];
-				$image = $product['product_image'];
-				$name = $product['product_name'];
-				$description = $product['product_description'];
-				$price = $product['product_price'];
-				echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
-				echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-				echo "<div class='snipcart-thumb'><a href='product_details.php?id=$id&w=1'><img title=' ' alt=' ' src='http://localhost/buytradesell/images/$image'></a><p>$name</p><h4>$price </h4></div>";
-				echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
-				echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
-				echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
-				echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
-				echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
-				echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
-				if($i % 3 == 0) {
-					echo "</div><div class='clearfix'></div></div>";
-				}
-				else {
-					echo "</div>";
-				}	
-				$i++;
-}
+            ?>
 
-?>
-</div></div></div>
+            <?php
+            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list3 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list3);
+
+
+            ?>
+
+            <?php
+            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list4 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list4);
+
+
+            ?>
+
+            <?php
+            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list5 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list5);
+            ?>
+
+            <?php
+            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list6 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list6);
+            ?>
+
+            <?php
+            $i = 1;
+            foreach ($list as $product) {
+                if ($i % 3 == 1) {
+                    echo "<div class='agile_top_brands_grids'>";
+                }
+                $id = $product['product_id'];
+                $image = $product['product_image'];
+                $name = $product['product_name'];
+                $description = $product['product_description'];
+                $price = $product['product_price'];
+                $identifier = $product['website_identifier'];
+                echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
+                echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
+                echo "<div class='snipcart-thumb'><a href='product_details.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><h4>$$price </h4></div>";
+                echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
+                echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
+                echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
+                echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
+                echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
+                echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
+                if ($i % 3 == 0) {
+                    echo "</div><div class='clearfix'></div></div>";
+                } else {
+                    echo "</div>";
+                }
+                $i++;
+            }
+            ?>
+        </div>
+    </div>
+</div>
 
 <!-- //footer -->
 <div class="footer">

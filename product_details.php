@@ -1,9 +1,3 @@
-<!--
-design author: W3layouts
-design author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +8,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
     <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        } </script>
     <!-- //for-mobile-apps -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -114,42 +108,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 
 <?php
- $id = $_GET['id'];
- $src = $_GET['w'];
- $source = '';
- 
- switch($src) {
-	 
-	 case 1: $source = "http://localhost/buytradesell/productDetails.php?id=$id";
-				break;
-				
-	case 2: $source = "";
-	break;
-	
-	case 3: $source = "";
-	break;
-	
-	case 4: $source = "";
-	break;
-				
-	 
- }
- 	$ch = curl_init($source);
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$contents = curl_exec ($ch);
-	curl_close($ch);
+$id = $_GET['id'];
+$src = $_GET['w'];
+$source = '';
 
-	$data = json_decode($contents,true);
+switch ($src) {
+    case 1:
+        $source = "";
+        break;
+    case 2:
+        $source = "";
+        break;
+    case 3:
+        $source = "";
+        break;
+    case 4:
+        $source = "";
+        break;
+    case 5:
+        $source = "";
+        break;
+    case 6:
+        $source = "https://earthdevelopers.chintanvachhani.me/productDetails.php?id=$id";
+        break;
+}
+$ch = curl_init($source);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$contents = curl_exec($ch);
+curl_close($ch);
 
-	foreach ($data as $product) {
-		
-		$image = $product['product_image'];
-		$name = $product['product_name'];
-		$description = $product['product_description'];
-		$price = $product['product_price'];
-		//$url = $product['url'];
-	}
+$data = json_decode($contents, true);
+
+foreach ($data as $product) {
+
+    $image = $product['product_image'];
+    $name = $product['product_name'];
+    $description = $product['product_description'];
+    $price = $product['product_price'];
+}
 
 ?>
 
@@ -158,10 +155,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="agileinfo_single">
 
             <div class="col-md-4 agileinfo_single_left">
-                <img id="example" src="http://localhost/buytradesell/images/<?php echo $image;?>" alt=" " class="img-responsive">
+                <img id="example" src="<?php echo $image; ?>" alt=" "
+                     class="img-responsive">
             </div>
             <div class="col-md-8 agileinfo_single_right">
-                <h2><?php echo $name;?></h2>
+                <h2><?php echo $name; ?></h2>
                 <div class="rating1">
 						<span class="starRating">
 							<input id="rating5" type="radio" name="rating" value="5">
@@ -178,11 +176,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
                 <div class="w3agile_description">
                     <h4>Description :</h4>
-                    <p><?php echo $description;?></p>
+                    <p><?php echo $description; ?></p>
                 </div>
                 <div class="snipcart-item block">
                     <div class="snipcart-thumb agileinfo_single_right_snipcart">
-                        <h4 class="m-sing"><?php echo $price;?></h4>
+                        <h4 class="m-sing"><?php echo "$".$price; ?></h4>
                     </div>
                     <div class="snipcart-details agileinfo_single_right_details">
                         <form action="#" method="post">
@@ -205,7 +203,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="clearfix"></div>
         </div>
     </div>
-</div> 
+</div>
 <!-- //single -->
 <!-- //footer -->
 <div class="footer">
