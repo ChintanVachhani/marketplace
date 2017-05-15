@@ -119,25 +119,25 @@ $source = '';
 
 switch ($src) {
     case 1:
-        $source = "http://www.gizmolife.org";
+        $source = "http://www.gizmolife.org/productDetails.php?id=$id";
         break;
     case 2:
-        $source = "http://www.spicyfood.co";
+        $source = "http://www.spicyfood.co/productDetails.php?id=$id";
         break;
     case 3:
-        $source = "http://www.sidhuzshop.com";
+        $source = "http://www.sidhuzshop.com/productDetails.php?id=$id";
         break;
     case 4:
-        $source = "http://www.coderabhishekchaudhary.com";
+        $source = "http://www.coderabhishekchaudhary.com/productDetails.php?id=$id";
         break;
     case 5:
-        $source = "http://www.buyselltrade.store";
+        $source = "http://www.buyselltrade.store/productDetails.php?id=$id";
         break;
     case 6:
-        $source = "https://earthdevelopers.chintanvachhani.me";
+        $source = "https://earthdevelopers.chintanvachhani.me/productDetails.php?id=$id";
         break;
 }
-$ch = curl_init($source + "/productDetails.php?id=$id");
+$ch = curl_init($source);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $contents = curl_exec($ch);

@@ -118,41 +118,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <img src="images/11.jpg" alt=""/>
         <!--Slider Description example-->
         <div class="slide-desc">
-            <h3>For Website 1</h3>
+            <h3>Gizmo Life</h3>
         </div>
     </li>
     <li>
         <img src="images/22.jpg" alt=""/>
         <div class="slide-desc">
-            <h3>For Website 2</h3>
+            <h3>Spicy Food</h3>
         </div>
     </li>
 
     <li>
         <img src="images/44.jpg" alt=""/>
         <div class="slide-desc">
-            <h3>For Website 3</h3>
+            <h3>Sidhuz Shop</h3>
         </div>
     </li>
 
     <li>
         <img src="images/44.jpg" alt=""/>
         <div class="slide-desc">
-            <h3>For Website 4</h3>
+            <h3>Coder</h3>
         </div>
     </li>
 
     <li>
         <img src="images/44.jpg" alt=""/>
         <div class="slide-desc">
-            <h3>For Website 5</h3>
+            <h3>Buy Sell Trade</h3>
         </div>
     </li>
 
     <li>
-        <img src="images/44.jpg" alt=""/>
+        <img src="images/EarthDevelopers.jpg" alt=""/>
         <div class="slide-desc">
-            <h3>For Website 6</h3>
+            <h3>Earth Developers</h3>
         </div>
     </li>
 </ul>

@@ -134,8 +134,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
             </div>
             <?php
-/*            $list = array();
-            */?><!--
+            $list = array();
+            ?>
             <?php
 /*            $ch = curl_init("http://www.gizmolife.org/products.php");
             curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -145,7 +145,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $list1 = json_decode($contents, true);
             $list = array_merge($list, $list1);
 
-            */?>
+            */?><!--
 
             <?php
 /*            $ch = curl_init("http://www.spicyfood.co/products.php");
