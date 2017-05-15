@@ -8,11 +8,11 @@
     <meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
     <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        } </script>
     <!-- //for-mobile-apps -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -41,11 +41,55 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 
 <body>
+<!-- facebook sso -->
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '122961781604234',
+            cookie: true,
+            xfbml: true,
+            version: 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function fbLogin() {
+        FB.login(function (response) {
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                FB.api('/me', {fields: 'email,first_name,last_name'}, function (response) {
+                    $.post('auth.php', {
+                        email: response.email,
+                        firstName: response.first_name,
+                        lastName: response.last_name
+                    }).done(function (data) {
+                        window.location = "index.php";
+                    });
+                });
+            } else {
+                // The person is not logged into this app or we are unable to tell.
+                window.location = "login.php";
+            }
+        }, {scope: 'public_profile,email'});
+    }
+</script>
+<!-- //facebook sso -->
 <!-- header -->
 <div class="logo_products">
     <div class="container">
         <div class="w3ls_logo_products_left">
-            <h1><a href="index.html">Marketplace</a></h1>
+            <h1><a href="index.php">Marketplace</a></h1>
         </div>
         <div class="w3l_search">
             <form action="#" method="post">
@@ -77,7 +121,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html" class="act">Home</a></li>
+                    <li class="active"><a href="index.php" class="act">Home</a></li>
                     <li><a href="products.html">All Products</a></li>
                     <!-- Mega Menu -->
                     <li class="dropdown">
@@ -94,35 +138,52 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <li><a href="">Earth Developers</a></li>
                                     </ul>
                                 </div>
+
                             </div>
                         </ul>
                     </li>
-                    <li><a href="checkout.html">My Cart</a></li>
-                    <li><a href="login.html">Login</a></li>
+                    <li><a href="checkout.php">My Cart</a></li>
+                    <li><?php
+                        session_start();
+                        if (isset($_SESSION['user'])) {
+                            echo '<a href="logout.php"><span>Logout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000;">' . $_SESSION["user"] . '</span></span></a></li>';
+                        } else {
+                            echo '<a href="login.php"><span>Login</span></a></li>';
+                        }
+                        ?></li>
                 </ul>
             </div>
         </nav>
     </div>
 </div>
 <!-- //navigation -->
-<!-- register -->
-<div class="register">
+<!-- login -->
+<div class="login">
     <div class="container">
-        <h2>Register Here</h2>
-        <div class="login-form-grids">
-            <h5>profile information</h5>
-            <form action="" method="POST">
-                <input type="text" name="firstName" id="firstName" placeholder="First Name" required=" "/>
-                <input type="text" name="lastName" id="lastName" placeholder="Last Name" required=" "/>
-                <h6>Login information</h6>
-                <input type="email" name="email" id="email" placeholder="Email Address" required=" "/>
-                <input type="password" name="password" id="password" placeholder="Password" required=" "/>
-                <input type="submit" name="submit" value="Register"/>
+        <h2>Login Form</h2>
+        <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+            <form action="authenticate.php" method="POST">
+                <input type="email" name="email" placeholder="Email Address" required=" ">
+                <input type="password" name="password" placeholder="Password" required=" ">
+                <div class="forgot">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <input type="submit" value="Login">
             </form>
+        </div>
+        <h4>Not registered?</h4>
+        <p><a href="registered.php">Register Here</a></p>
+        <h6><p>(or)</p></h6>
+        <div style="text-align: center">
+            <!-- facebook button -->
+            <div class="fb-login-button" onlogin="fbLogin();" data-max-rows="1" data-size="medium"
+                 data-button-type="login_with"
+                 data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+            <!-- //facebook button -->
         </div>
     </div>
 </div>
-<!-- //register -->
+<!-- //login -->
 <!-- //footer -->
 <div class="footer">
     <div class="container">
@@ -130,9 +191,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="col-md-3 w3_footer_grid">
                 <h3>Profile</h3>
                 <ul class="info">
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.php">My Cart</a></li>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.php">Login</a></li>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.php">Create Account</a>
                     </li>
                 </ul>
             </div>

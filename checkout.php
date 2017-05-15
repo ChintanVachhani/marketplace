@@ -8,11 +8,11 @@
     <meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
     <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        } </script>
     <!-- //for-mobile-apps -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -45,7 +45,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="logo_products">
     <div class="container">
         <div class="w3ls_logo_products_left">
-            <h1><a href="index.html">Marketplace</a></h1>
+            <h1><a href="index.php">Marketplace</a></h1>
         </div>
         <div class="w3l_search">
             <form action="#" method="post">
@@ -77,7 +77,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html" class="act">Home</a></li>
+                    <li class="active"><a href="index.php" class="act">Home</a></li>
                     <li><a href="products.html">All Products</a></li>
                     <!-- Mega Menu -->
                     <li class="dropdown">
@@ -98,8 +98,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                         </ul>
                     </li>
-                    <li><a href="checkout.html">My Cart</a></li>
-                    <li><a href="login.html">Login</a></li>
+                    <li><a href="checkout.php">My Cart</a></li>
+                    <li><?php
+                        session_start();
+                        if (isset($_SESSION['user'])) {
+                            echo '<a href="logout.php"><span>Logout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000;">' . $_SESSION["user"] . '</span></span></a></li>';
+                        } else {
+                            redirect("login.php");
+                            echo '<a href="login.php"><span>Login</span></a></li>';
+                        }
+                        function redirect($url)
+                        {
+                            //header("Location:  " . $url);
+                            print "<script type='text/javascript'>window.location = '" . $url . "'; </script>";
+                            exit();
+                        }
+
+                        ?></li>
                 </ul>
             </div>
         </nav>
@@ -144,12 +159,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="close1"></div>
                         </div>
                         <script>$(document).ready(function (c) {
-                            $('.close1').on('click', function (c) {
-                                $('.rem1').fadeOut('slow', function (c) {
-                                    $('.rem1').remove();
+                                $('.close1').on('click', function (c) {
+                                    $('.rem1').fadeOut('slow', function (c) {
+                                        $('.rem1').remove();
+                                    });
                                 });
                             });
-                        });
                         </script>
                     </td>
                 </tr>
@@ -174,12 +189,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="close2"></div>
                         </div>
                         <script>$(document).ready(function (c) {
-                            $('.close2').on('click', function (c) {
-                                $('.rem2').fadeOut('slow', function (c) {
-                                    $('.rem2').remove();
+                                $('.close2').on('click', function (c) {
+                                    $('.rem2').fadeOut('slow', function (c) {
+                                        $('.rem2').remove();
+                                    });
                                 });
                             });
-                        });
                         </script>
                     </td>
                 </tr>
@@ -204,12 +219,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="close3"></div>
                         </div>
                         <script>$(document).ready(function (c) {
-                            $('.close3').on('click', function (c) {
-                                $('.rem3').fadeOut('slow', function (c) {
-                                    $('.rem3').remove();
+                                $('.close3').on('click', function (c) {
+                                    $('.rem3').fadeOut('slow', function (c) {
+                                        $('.rem3').remove();
+                                    });
                                 });
                             });
-                        });
                         </script>
                     </td>
                 </tr>
@@ -240,7 +255,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </ul>
             </div>
             <div class="checkout-right-basket">
-                <a href="single.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue
+                <a href="products.php"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue
                     Shopping</a>
             </div>
             <div class="clearfix"></div>
@@ -255,9 +270,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="col-md-3 w3_footer_grid">
                 <h3>Profile</h3>
                 <ul class="info">
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.php">My Cart</a></li>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.php">Login</a></li>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.php">Create Account</a>
                     </li>
                 </ul>
             </div>

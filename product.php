@@ -8,11 +8,11 @@
     <meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
     <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        } </script>
     <!-- //for-mobile-apps -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -45,7 +45,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="logo_products">
     <div class="container">
         <div class="w3ls_logo_products_left">
-            <h1><a href="index.html">Marketplace</a></h1>
+            <h1><a href="index.php">Marketplace</a></h1>
         </div>
         <div class="w3l_search">
             <form action="#" method="post">
@@ -77,8 +77,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html" class="act">Home</a></li>
-                    <li><a href="products.html">All Products</a></li>
+                    <li class="active"><a href="index.php" class="act">Home</a></li>
+                    <li><a href="products.php">All Products</a></li>
                     <!-- Mega Menu -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services<b class="caret"></b></a>
@@ -86,35 +86,85 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="row">
                                 <div class="multi-gd-img">
                                     <ul class="multi-column-dropdown">
-                                        <li><a href="">Gizmo Life</a></li>
-                                        <li><a href="">Spicy Food</a></li>
-                                        <li><a href="">Sidhuz Shop</a></li>
-                                        <li><a href="">CoderAbhishekChaudhary</a></li>
-                                        <li><a href="">Buy-Sell-Trade</a></li>
-                                        <li><a href="">Earth Developers</a></li>
+                                        <li><a href="">Website 1</a></li>
+                                        <li><a href="">Website 2</a></li>
+                                        <li><a href="">Website 3</a></li>
+                                        <li><a href="">Website 4</a></li>
+                                        <li><a href="">Website 5</a></li>
+                                        <li><a href="">Website 6</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </ul>
                     </li>
-                    <li><a href="checkout.html">My Cart</a></li>
-                    <li><a href="login.html">Login</a></li>
+                    <li><a href="checkout.php">My Cart</a></li>
+                    <li><?php
+                        session_start();
+                        if (isset($_SESSION['user'])) {
+                            echo '<a href="logout.php"><span>Logout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000;">' . $_SESSION["user"] . '</span></span></a></li>';
+                        } else {
+                            echo '<a href="login.php"><span>Login</span></a></li>';
+                        }
+                        ?></li>
                 </ul>
             </div>
         </nav>
     </div>
 </div>
-<!-- //navigation -->
-<!-- //single -->
+
+<?php
+$id = $_GET['id'];
+$src = $_GET['w'];
+$source = '';
+
+switch ($src) {
+    case 1:
+        $source = "";
+        break;
+    case 2:
+        $source = "";
+        break;
+    case 3:
+        $source = "";
+        break;
+    case 4:
+        $source = "";
+        break;
+    case 5:
+        $source = "";
+        break;
+    case 6:
+        $source = "https://earthdevelopers.chintanvachhani.me/productDetails.php?id=$id";
+        break;
+}
+$ch = curl_init($source);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$contents = curl_exec($ch);
+curl_close($ch);
+
+$data = json_decode($contents, true);
+
+foreach ($data as $product) {
+
+    $image = $product['product_image'];
+    $name = $product['product_name'];
+    $description = $product['product_description'];
+    $price = $product['product_price'];
+}
+
+?>
+
 <div class="products">
     <div class="container">
         <div class="agileinfo_single">
 
             <div class="col-md-4 agileinfo_single_left">
-                <img id="example" src="images/si1.jpg" alt=" " class="img-responsive">
+                <img id="example" src="<?php echo $image; ?>" alt=" "
+                     class="img-responsive">
             </div>
             <div class="col-md-8 agileinfo_single_right">
-                <h2>KHARAMORRA Khakra - Hariyali</h2>
+                <h2><?php echo $name; ?></h2>
                 <div class="rating1">
 						<span class="starRating">
 							<input id="rating5" type="radio" name="rating" value="5">
@@ -131,14 +181,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
                 <div class="w3agile_description">
                     <h4>Description :</h4>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                        officia deserunt mollit anim id est laborum.Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur.</p>
+                    <p><?php echo $description; ?></p>
                 </div>
                 <div class="snipcart-item block">
                     <div class="snipcart-thumb agileinfo_single_right_snipcart">
-                        <h4 class="m-sing">$21.00 <span>$25.00</span></h4>
+                        <h4 class="m-sing"><?php echo "$".$price; ?></h4>
                     </div>
                     <div class="snipcart-details agileinfo_single_right_details">
                         <form action="#" method="post">
@@ -152,7 +199,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <input type="hidden" name="currency_code" value="USD">
                                 <input type="hidden" name="return" value=" ">
                                 <input type="hidden" name="cancel_return" value=" ">
-                                <input type="submit" name="submit" value="Add to cart" class="button">
+                                <input type="submit" name="submit" value="Add Review" class="button">
                             </fieldset>
                         </form>
                     </div>
@@ -170,9 +217,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="col-md-3 w3_footer_grid">
                 <h3>Profile</h3>
                 <ul class="info">
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.php">My Cart</a></li>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.php">Login</a></li>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.php">Create Account</a>
                     </li>
                 </ul>
             </div>

@@ -45,7 +45,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="logo_products">
     <div class="container">
         <div class="w3ls_logo_products_left">
-            <h1><a href="index.html">Marketplace</a></h1>
+            <h1><a href="index.php">Marketplace</a></h1>
         </div>
         <div class="w3l_search">
             <form action="#" method="post">
@@ -77,13 +77,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html" class="act">Home</a></li>
+                    <li class="active"><a href="index.php" class="act">Home</a></li>
                     <li><a href="products.php">All Products</a></li>
-                    <li><a href="registered.html">Create Account</a></li>
-                    <li><a href="login.html">Login</a></li>
                     <!-- Mega Menu -->
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-column columns-3">
                             <div class="row">
                                 <div class="multi-gd-img">
@@ -100,7 +98,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                         </ul>
                     </li>
-                    <li><a href="checkout.html">My Cart</a></li>
+                    <li><a href="checkout.php">My Cart</a></li>
+                    <li><?php
+                        session_start();
+                        if (isset($_SESSION['user'])) {
+                            echo '<a href="logout.php"><span>Logout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000;">' . $_SESSION["user"] . '</span></span></a></li>';
+                        } else {
+                            echo '<a href="login.php"><span>Login</span></a></li>';
+                        }
+                        ?></li>
                 </ul>
             </div>
         </nav>
@@ -206,12 +212,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $id = $product['product_id'];
                 $image = $product['product_image'];
                 $name = $product['product_name'];
-                $description = $product['product_description'];
                 $price = $product['product_price'];
                 $identifier = $product['website_identifier'];
                 echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                 echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                echo "<div class='snipcart-thumb'><a href='product_details.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><h4>$$price </h4></div>";
+                echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><h4>$$price </h4></div>";
                 echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                 echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
                 echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
@@ -237,9 +242,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="col-md-3 w3_footer_grid">
                 <h3>Profile</h3>
                 <ul class="info">
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">My Cart</a></li>
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.html">Login</a></li>
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.html">Create Account</a>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.php">My Cart</a></li>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.php">Login</a></li>
+                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.php">Create Account</a>
                     </li>
                 </ul>
             </div>
