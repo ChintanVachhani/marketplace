@@ -134,10 +134,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
             </div>
             <?php
-            $list = array();
-            ?>
+/*            $list = array();
+            */?><!--
             <?php
-            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+/*            $ch = curl_init("http://www.gizmolife.org/products.php");
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $contents = curl_exec($ch);
@@ -145,10 +145,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $list1 = json_decode($contents, true);
             $list = array_merge($list, $list1);
 
-            ?>
+            */?>
 
             <?php
-            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+/*            $ch = curl_init("http://www.spicyfood.co/products.php");
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $contents = curl_exec($ch);
@@ -157,10 +157,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $list = array_merge($list, $list2);
 
 
-            ?>
+            */?>
 
             <?php
-            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+/*            $ch = curl_init("http://www.sidhuzshop.com/products.php");
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $contents = curl_exec($ch);
@@ -169,10 +169,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $list = array_merge($list, $list3);
 
 
-            ?>
+            */?>
 
             <?php
-            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+/*            $ch = curl_init("http://www.coderabhishekchaudhary.com/products.php");
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $contents = curl_exec($ch);
@@ -181,17 +181,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $list = array_merge($list, $list4);
 
 
-            ?>
+            */?>
 
-            <?php
-            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
+            --><?php
+/*            $ch = curl_init("http://www.buyselltrade.store/products.php");
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $contents = curl_exec($ch);
             $list5 = json_decode($contents, true);
             curl_close($ch);
             $list = array_merge($list, $list5);
-            ?>
+            */?>
 
             <?php
             $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");

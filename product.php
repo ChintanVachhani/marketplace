@@ -119,25 +119,25 @@ $source = '';
 
 switch ($src) {
     case 1:
-        $source = "";
+        $source = "http://www.gizmolife.org";
         break;
     case 2:
-        $source = "";
+        $source = "http://www.spicyfood.co";
         break;
     case 3:
-        $source = "";
+        $source = "http://www.sidhuzshop.com";
         break;
     case 4:
-        $source = "";
+        $source = "http://www.coderabhishekchaudhary.com";
         break;
     case 5:
-        $source = "";
+        $source = "http://www.buyselltrade.store";
         break;
     case 6:
-        $source = "https://earthdevelopers.chintanvachhani.me/productDetails.php?id=$id";
+        $source = "https://earthdevelopers.chintanvachhani.me";
         break;
 }
-$ch = curl_init($source);
+$ch = curl_init($source + "/productDetails.php?id=$id");
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $contents = curl_exec($ch);
@@ -185,7 +185,7 @@ foreach ($data as $product) {
                 </div>
                 <div class="snipcart-item block">
                     <div class="snipcart-thumb agileinfo_single_right_snipcart">
-                        <h4 class="m-sing"><?php echo "$".$price; ?></h4>
+                        <h4 class="m-sing"><?php echo "$" . $price; ?></h4>
                     </div>
                     <div class="snipcart-details agileinfo_single_right_details">
                         <form action="#" method="post">
