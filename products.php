@@ -112,7 +112,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </nav>
     </div>
 </div>
-<div class="products" style="padding-top: 40px;">
+<div class="products" style="padding-top: 40px; padding-bottom: 40px;">
     <div class="container">
         <div class="col-md-12">
             <div class="products-right-grid">
@@ -138,7 +138,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $list = array();
             ?>
             <?php
-            /*            $ch = curl_init("http://www.gizmolife.org/products.php");
+                        $ch = curl_init("http://www.gizmolife.org/marketplace/products.php");
                         curl_setopt($ch, CURLOPT_HEADER, 0);
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                         $contents = curl_exec($ch);
@@ -146,7 +146,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         $list1 = json_decode($contents, true);
                         $list = array_merge($list, $list1);
 
-                        */ ?><!--
+                         ?><!--
 
             <?php
             /*            $ch = curl_init("http://www.spicyfood.co/products.php");
@@ -185,14 +185,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         */ ?>
 
             --><?php
-            /*            $ch = curl_init("http://www.buyselltrade.store/products.php");
+                        $ch = curl_init("http://www.buyselltrade.store/products.php");
                         curl_setopt($ch, CURLOPT_HEADER, 0);
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                         $contents = curl_exec($ch);
                         $list5 = json_decode($contents, true);
                         curl_close($ch);
                         $list = array_merge($list, $list5);
-                        */ ?>
+                         ?>
 
             <?php
             $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");

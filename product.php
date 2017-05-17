@@ -119,7 +119,7 @@ $source = '';
 
 switch ($src) {
     case 1:
-        $source = "http://www.gizmolife.org/productDetails.php?id=$id";
+        $source = "http://www.gizmolife.org/marketplace/productDetails.php?id=$id";
         break;
     case 2:
         $source = "http://www.spicyfood.co/productDetails.php?id=$id";
