@@ -112,23 +112,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </nav>
     </div>
 </div>
-<div class="products">
+<div class="products" style="padding-top: 40px;">
     <div class="container">
         <div class="col-md-12">
             <div class="products-right-grid">
                 <div class="products-right-grids">
-                    <div class="sorting">
-                        <select id="country" onchange="change_country(this.value)" class="frm-field required sect">
-                            <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Default sorting
-                            </option>
-                            <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Sort by popularity
-                            </option>
-                            <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Sort by average
-                                rating
-                            </option>
-                            <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Sort by price
-                            </option>
-                        </select>
+                    <div class="w3l_search">
+                        <form action="" method="post">
+                            <select id="sortCriteria" name="sortCriteria">
+                                <option value="0">Default Sorting</option>
+                                <option value="1">Sort by Popularity</option>
+                                <option value="2">Sort by Rating</option>
+                                <option value="3">Sort by Price (Low to High)</option>
+                                <option value="4">Sort by Price (High to Low)</option>
+                            </select>
+                            <button type="submit" class="btn btn-default search" aria-label="Left Align"
+                                    style="color: white">Sort
+                            </button>
+                        </form>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -137,61 +138,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $list = array();
             ?>
             <?php
-/*            $ch = curl_init("http://www.gizmolife.org/products.php");
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $contents = curl_exec($ch);
-            curl_close($ch);
-            $list1 = json_decode($contents, true);
-            $list = array_merge($list, $list1);
+            /*            $ch = curl_init("http://www.gizmolife.org/products.php");
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        $contents = curl_exec($ch);
+                        curl_close($ch);
+                        $list1 = json_decode($contents, true);
+                        $list = array_merge($list, $list1);
 
-            */?><!--
-
-            <?php
-/*            $ch = curl_init("http://www.spicyfood.co/products.php");
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $contents = curl_exec($ch);
-            $list2 = json_decode($contents, true);
-            curl_close($ch);
-            $list = array_merge($list, $list2);
-
-
-            */?>
+                        */ ?><!--
 
             <?php
-/*            $ch = curl_init("http://www.sidhuzshop.com/products.php");
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $contents = curl_exec($ch);
-            $list3 = json_decode($contents, true);
-            curl_close($ch);
-            $list = array_merge($list, $list3);
+            /*            $ch = curl_init("http://www.spicyfood.co/products.php");
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        $contents = curl_exec($ch);
+                        $list2 = json_decode($contents, true);
+                        curl_close($ch);
+                        $list = array_merge($list, $list2);
 
 
-            */?>
+                        */ ?>
 
             <?php
-/*            $ch = curl_init("http://www.coderabhishekchaudhary.com/products.php");
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $contents = curl_exec($ch);
-            $list4 = json_decode($contents, true);
-            curl_close($ch);
-            $list = array_merge($list, $list4);
+            /*            $ch = curl_init("http://www.sidhuzshop.com/products.php");
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        $contents = curl_exec($ch);
+                        $list3 = json_decode($contents, true);
+                        curl_close($ch);
+                        $list = array_merge($list, $list3);
 
 
-            */?>
+                        */ ?>
+
+            <?php
+            /*            $ch = curl_init("http://www.coderabhishekchaudhary.com/products.php");
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        $contents = curl_exec($ch);
+                        $list4 = json_decode($contents, true);
+                        curl_close($ch);
+                        $list = array_merge($list, $list4);
+
+
+                        */ ?>
 
             --><?php
-/*            $ch = curl_init("http://www.buyselltrade.store/products.php");
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $contents = curl_exec($ch);
-            $list5 = json_decode($contents, true);
-            curl_close($ch);
-            $list = array_merge($list, $list5);
-            */?>
+            /*            $ch = curl_init("http://www.buyselltrade.store/products.php");
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        $contents = curl_exec($ch);
+                        $list5 = json_decode($contents, true);
+                        curl_close($ch);
+                        $list = array_merge($list, $list5);
+                        */ ?>
 
             <?php
             $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
@@ -205,6 +206,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <?php
             $i = 1;
+
+            switch ($_POST['sortCriteria']) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    echo "<script>$('#sortCriteria option[value=3]').prop('selected', 'selected').change();</script>";
+                    function cmp($a, $b)
+                    {
+                        return $a['product_price'] - $b['product_price'];
+                    }
+
+                    usort($list, "cmp");
+                    break;
+                case 4:
+                    echo "<script>$('#sortCriteria option[value=4]').prop('selected', 'selected').change();</script>";
+                    function cmp($a, $b)
+                    {
+                        return $b['product_price'] - $a['product_price'];
+                    }
+
+                    usort($list, "cmp");
+                    break;
+            }
+
             foreach ($list as $product) {
                 if ($i % 3 == 1) {
                     echo "<div class='agile_top_brands_grids'>";
@@ -216,7 +243,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $identifier = $product['website_identifier'];
                 echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                 echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><h4>$$price </h4></div>";
+                echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><div class=\"stars\"><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star gray-star\" aria-hidden=\"true\"></i></div><h4>$$price </h4></div>";
                 echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                 echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
                 echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";

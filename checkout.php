@@ -78,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="index.php" class="act">Home</a></li>
-                    <li><a href="products.html">All Products</a></li>
+                    <li><a href="products.php">All Products</a></li>
                     <!-- Mega Menu -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services<b class="caret"></b></a>

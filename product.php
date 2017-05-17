@@ -199,7 +199,7 @@ foreach ($data as $product) {
                                 <input type="hidden" name="currency_code" value="USD">
                                 <input type="hidden" name="return" value=" ">
                                 <input type="hidden" name="cancel_return" value=" ">
-                                <input type="submit" name="submit" value="Add Review" class="button">
+                                <input type="submit" name="submit" value="Add to Cart" class="button">
                             </fieldset>
                         </form>
                     </div>
