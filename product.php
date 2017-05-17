@@ -16,6 +16,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //for-mobile-apps -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/review.css" rel="stylesheet" type="text/css">
     <!-- font-awesome icons -->
     <link href="css/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->
@@ -48,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <h1><a href="index.php">Marketplace</a></h1>
         </div>
         <div class="w3l_search">
-            <form action="#" method="post">
+            <form action="search.php" method="get">
                 <input type="search" name="Search" placeholder="Search" required="">
                 <button type="submit" class="btn btn-default search" aria-label="Left Align">
                     <i class="fa fa-search" aria-hidden="true"> </i>
@@ -200,6 +201,9 @@ foreach ($data as $product) {
                                 <input type="hidden" name="return" value=" ">
                                 <input type="hidden" name="cancel_return" value=" ">
                                 <input type="submit" name="submit" value="Add to Cart" class="button">
+                                <!-- Trigger the modal with a button -->
+                                <input type="button" class="button" data-toggle="modal" data-target="#myModal"
+                                       value="Rate & Review"></input>
                             </fieldset>
                         </form>
                     </div>
@@ -207,8 +211,76 @@ foreach ($data as $product) {
             </div>
             <div class="clearfix"></div>
         </div>
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add your review</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form accept-charset="UTF-8" action="review.php" method="post">
+                            <input id="ratings-hidden" name="rating" type="hidden">
+                            <textarea class="form-control animated" cols="50" id="new-review" name="comment"
+                                      placeholder="Enter your review here..." rows="5"></textarea>
+
+                            <div class="rating1">
+                                    <span class="starRating">
+                                        <input id="rating5" type="radio" name="rating" value="5">
+                                        <label for="rating5">5</label>
+                                        <input id="rating4" type="radio" name="rating" value="4">
+                                        <label for="rating4">4</label>
+                                        <input id="rating3" type="radio" name="rating" value="3" checked="">
+                                        <label for="rating3">3</label>
+                                        <input id="rating2" type="radio" name="rating" value="2">
+                                        <label for="rating2">2</label>
+                                        <input id="rating1" type="radio" name="rating" value="1">
+                                        <label for="rating1">1</label>
+                                    </span>
+                            </div>
+
+                            <div class="text-right">
+                                <button class="btn btn-danger btn-sm" type="button" class="close"
+                                        data-dismiss="modal">Cancel
+                                </button>
+                                <button class="btn btn-success btn-sm" type="submit">Add</button>
+                            </div>
+                            <input id='prod_id' name='prod_id' type='hidden' value='<?php echo $_GET['id']; ?>'>
+                            <input id='identifier_id' name='identifier_id' type='hidden'
+                                   value='<?php echo $_GET['w']; ?>'>
+                            <input id='user_id' name='user_id' type='hidden' value='<?php echo $_SESSION['user'] ?>'>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="detailBox">
+            <div class="titleBox">
+                <label>User Reviews</label>
+                <button type="button" class="close" aria-hidden="true">&times;</button>
+            </div>
+            <div class="actionBox">
+                <ul class="commentList">
+                    <li>
+                        <div class="commentText">
+                            <p class="">Hello this is a test comment.</p>
+                            <span class="date sub-text">on March 5th, 2014</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
+</div>
+
 <!-- //single -->
 <!-- //footer -->
 <div class="footer">

@@ -41,50 +41,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 
 <body>
-<!-- facebook sso -->
-<script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '122961781604234',
-            cookie: true,
-            xfbml: true,
-            version: 'v2.8'
-        });
-        FB.AppEvents.logPageView();
-    };
-
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    function fbLogin() {
-        FB.login(function (response) {
-            if (response.status === 'connected') {
-                // Logged into your app and Facebook.
-                FB.api('/me', {fields: 'email,first_name,last_name'}, function (response) {
-                    $.post('auth.php', {
-                        email: response.email,
-                        firstName: response.first_name,
-                        lastName: response.last_name
-                    }).done(function (data) {
-                        window.location = "index.php";
-                    });
-                });
-            } else {
-                // The person is not logged into this app or we are unable to tell.
-                window.location = "login.php";
-            }
-        }, {scope: 'public_profile,email'});
-    }
-</script>
-<!-- //facebook sso -->
 <!-- header -->
 <div class="logo_products">
     <div class="container">
@@ -125,7 +81,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <li><a href="products.php">All Products</a></li>
                     <!-- Mega Menu -->
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-column columns-3">
                             <div class="row">
                                 <div class="multi-gd-img">
@@ -156,34 +112,163 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </nav>
     </div>
 </div>
-<!-- //navigation -->
-<!-- login -->
-<div class="login">
+<div class="products">
     <div class="container">
-        <h2>Login Form</h2>
-        <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-            <form action="authenticate.php" method="POST">
-                <input type="email" name="email" placeholder="Email Address" required=" ">
-                <input type="password" name="password" placeholder="Password" required=" ">
-                <div class="forgot">
-                    <a href="#">Forgot Password?</a>
+        <div class="col-md-12">
+            <div class="products-right-grid">
+                <div class="products-right-grids">
+                    <div class="w3l_search">
+                        <form action="" method="post">
+                            <select id="sortCriteria" name="sortCriteria">
+                                <option value="0">Default Sorting</option>
+                                <option value="1">Sort by Popularity</option>
+                                <option value="2">Sort by Rating</option>
+                                <option value="3">Sort by Price (Low to High)</option>
+                                <option value="4">Sort by Price (High to Low)</option>
+                            </select>
+                            <button type="submit" class="btn btn-default search" aria-label="Left Align"
+                                    style="color: white">Sort
+                            </button>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <input type="submit" value="Login">
-            </form>
-        </div>
-        <h4>Not registered?</h4>
-        <p><a href="registered.php">Register Here</a></p>
-        <h6><p>(or)</p></h6>
-        <div style="text-align: center">
-            <!-- facebook button -->
-            <div class="fb-login-button" onlogin="fbLogin();" data-max-rows="1" data-size="medium"
-                 data-button-type="login_with"
-                 data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
-            <!-- //facebook button -->
+            </div>
+            <?php
+
+            $searchQuery = $_GET['Search'];
+
+            $list = array();
+
+
+            /* $ch = curl_init("http://www.gizmolife.org/search.php?query=$searchQuery");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            curl_close($ch);
+            $list1 = json_decode($contents, true);
+            $list = array_merge($list, $list1); */
+
+            ?><!--
+
+            <?php
+            /*            $ch = curl_init("http://www.spicyfood.co/search.php?query=$searchQuery");
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        $contents = curl_exec($ch);
+                        $list2 = json_decode($contents, true);
+                        curl_close($ch);
+                        $list = array_merge($list, $list2);
+
+
+                        */ ?>
+
+            <?php
+            /*            $ch = curl_init("http://www.sidhuzshop.com/search.php?query=$searchQuery");
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        $contents = curl_exec($ch);
+                        $list3 = json_decode($contents, true);
+                        curl_close($ch);
+                        $list = array_merge($list, $list3);
+
+
+                        */ ?>
+
+            <?php
+            /*            $ch = curl_init("http://www.coderabhishekchaudhary.com/search.php?query=$searchQuery");
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        $contents = curl_exec($ch);
+                        $list4 = json_decode($contents, true);
+                        curl_close($ch);
+                        $list = array_merge($list, $list4);
+
+
+                        */ ?>
+
+            --><?php
+            $ch = curl_init("http://www.buyselltrade.store/search.php?query=$searchQuery");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list5 = json_decode($contents, true);
+            curl_close($ch);
+            if (sizeof($list5) > 0) {
+                $list = array_merge($list, $list5);
+            }
+            ?>
+
+            <?php
+            $ch = curl_init("https://earthdevelopers.chintanvachhani.me/search.php?query=$searchQuery");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list6 = json_decode($contents, true);
+            curl_close($ch);
+            if (sizeof($list6) > 0) {
+                $list = array_merge($list, $list6);
+            }
+            ?>
+
+            <?php
+            $i = 1;
+
+            switch ($_POST['sortCriteria']) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    echo "<script>$('#sortCriteria option[value=3]').prop('selected', 'selected').change();</script>";
+                    function cmp($a, $b)
+                    {
+                        return $a['product_price'] - $b['product_price'];
+                    }
+
+                    usort($list, "cmp");
+                    break;
+                case 4:
+                    echo "<script>$('#sortCriteria option[value=4]').prop('selected', 'selected').change();</script>";
+                    function cmp($a, $b)
+                    {
+                        return $b['product_price'] - $a['product_price'];
+                    }
+
+                    usort($list, "cmp");
+                    break;
+            }
+
+            foreach ($list as $product) {
+                if ($i % 3 == 1) {
+                    echo "<div class='agile_top_brands_grids'>";
+                }
+                $id = $product['product_id'];
+                $image = $product['product_image'];
+                $name = $product['product_name'];
+                $price = $product['product_price'];
+                $identifier = $product['website_identifier'];
+                echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
+                echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
+                echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><div class=\"stars\"><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star gray-star\" aria-hidden=\"true\"></i></div><h4>$$price </h4></div>";
+                echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
+                echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
+                echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
+                echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
+                echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
+                echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
+                if ($i % 3 == 0  || $i == count($list)) {
+                    echo "</div><div class='clearfix'></div></div>";
+                } else {
+                    echo "</div>";
+                }
+                $i++;
+            }
+            ?>
         </div>
     </div>
 </div>
-<!-- //login -->
+
 <!-- //footer -->
 <div class="footer">
     <div class="container">

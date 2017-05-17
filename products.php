@@ -48,7 +48,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <h1><a href="index.php">Marketplace</a></h1>
         </div>
         <div class="w3l_search">
-            <form action="#" method="post">
+            <form action="search.php" method="get">
                 <input type="search" name="Search" placeholder="Search" required="">
                 <button type="submit" class="btn btn-default search" aria-label="Left Align">
                     <i class="fa fa-search" aria-hidden="true"> </i>
@@ -112,7 +112,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </nav>
     </div>
 </div>
-<div class="products" style="padding-top: 40px; padding-bottom: 40px;">
+<div class="products">
     <div class="container">
         <div class="col-md-12">
             <div class="products-right-grid">
@@ -138,27 +138,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $list = array();
             ?>
             <?php
-                        $ch = curl_init("http://www.gizmolife.org/marketplace/products.php");
-                        curl_setopt($ch, CURLOPT_HEADER, 0);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                        $contents = curl_exec($ch);
-                        curl_close($ch);
-                        $list1 = json_decode($contents, true);
-                        $list = array_merge($list, $list1);
+            $ch = curl_init("http://www.gizmolife.org/marketplace/products.php");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            curl_close($ch);
+            $list1 = json_decode($contents, true);
+            $list = array_merge($list, $list1);
 
-                         ?><!--
+            ?>
 
             <?php
-            /*            $ch = curl_init("http://www.spicyfood.co/products.php");
-                        curl_setopt($ch, CURLOPT_HEADER, 0);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                        $contents = curl_exec($ch);
-                        $list2 = json_decode($contents, true);
-                        curl_close($ch);
-                        $list = array_merge($list, $list2);
-
-
-                        */ ?>
+            $ch = curl_init("http://www.spicyfood.co/products.php");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list2 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list2);
+            ?>
 
             <?php
             /*            $ch = curl_init("http://www.sidhuzshop.com/products.php");
@@ -173,26 +171,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         */ ?>
 
             <?php
-            /*            $ch = curl_init("http://www.coderabhishekchaudhary.com/products.php");
-                        curl_setopt($ch, CURLOPT_HEADER, 0);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                        $contents = curl_exec($ch);
-                        $list4 = json_decode($contents, true);
-                        curl_close($ch);
-                        $list = array_merge($list, $list4);
+            $ch = curl_init("http://www.coderabhishekchaudhary.com/products1.php");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list4 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list4);
+            ?>
 
-
-                        */ ?>
-
-            --><?php
-                        $ch = curl_init("http://www.buyselltrade.store/products.php");
-                        curl_setopt($ch, CURLOPT_HEADER, 0);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                        $contents = curl_exec($ch);
-                        $list5 = json_decode($contents, true);
-                        curl_close($ch);
-                        $list = array_merge($list, $list5);
-                         ?>
+            <?php
+            $ch = curl_init("http://www.buyselltrade.store/products.php");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list5 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list5);
+            ?>
 
             <?php
             $ch = curl_init("https://earthdevelopers.chintanvachhani.me/products.php");
@@ -231,7 +227,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     usort($list, "cmp");
                     break;
             }
-
+            
             foreach ($list as $product) {
                 if ($i % 3 == 1) {
                     echo "<div class='agile_top_brands_grids'>";
@@ -250,7 +246,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
                 echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                 echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
-                if ($i % 3 == 0) {
+                if ($i % 3 == 0 || $i == count($list)) {
                     echo "</div><div class='clearfix'></div></div>";
                 } else {
                     echo "</div>";
