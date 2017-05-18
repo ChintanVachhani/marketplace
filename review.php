@@ -2,7 +2,7 @@
 
 extract($_POST);
 // db connection
-$dbc = mysqli_connect("localhost", "root", "root", "marketplace");
+$dbc = mysqli_connect("localhost", "root", "password", "marketplace");
 
 if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
