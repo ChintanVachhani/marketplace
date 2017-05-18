@@ -39,6 +39,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
     </script>
     <!-- start-smoth-scrolling -->
+
+
 </head>
 
 <body>
@@ -189,10 +191,10 @@ foreach ($data as $product) {
                                 <input type="hidden" name="currency_code" value="USD">
                                 <input type="hidden" name="return" value=" ">
                                 <input type="hidden" name="cancel_return" value=" ">
-                                <input type="submit" name="submit" value="Add to Cart" class="button">
-                                <!-- Trigger the modal with a button -->
-                                <input type="button" class="button" data-toggle="modal" data-target="#myModal"
-                                       value="Rate & Review"></input>
+
+                                <input type="submit" name="submit" value="Add to Cart" class="button"/>
+
+
                             </fieldset>
                         </form>
                     </div>
@@ -251,10 +253,35 @@ foreach ($data as $product) {
         </div>
 
         <div class="detailBox">
-            <div class="titleBox">
+            <div class="titleBox" style="padding-bottom: 20px;">
                 <label>User Reviews</label>
-                <button type="button" class="close" aria-hidden="true">&times;</button>
+                <?php
+                session_start();
+                if (isset($_SESSION['user'])) {
+                    echo '<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal"
+                        id="newQuoteButton" style="float: right;">Add Review</button>';
+                } else {
+                    echo '<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal"
+                        style="float: right;color: ">Please Login to Add Review</button>';
+                }
+                ?>
+
+
+                <!-- <button type="button" class="close" aria-hidden="true">&times;</button> -->
+                <!-- Trigger the modal with a button -->
+
             </div>
+
+            <?php
+
+            //set up database connection
+            $dbc = mysqli_connect("localhost", "root", "root", "marketplace");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            }
+
+            ?>
+
             <div class="actionBox">
                 <ul class="commentList">
                     <li>
@@ -265,6 +292,7 @@ foreach ($data as $product) {
                     </li>
                 </ul>
             </div>
+
         </div>
     </div>
 </div>
