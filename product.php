@@ -1,3 +1,95 @@
+<?php
+session_start();
+$id = $_GET['id'];
+$src = $_GET['w'];
+$source = '';
+switch ($src) {
+    case 1:
+        $source = "http://www.gizmolife.org/marketplace/productDetails.php?id=$id";
+        break;
+    case 2:
+        $source = "http://www.spicyfood.co/productDetails.php?id=$id";
+        break;
+    case 3:
+        $source = "http://www.sidhuzshop.com/productDetails.php?id=$id";
+        break;
+    case 4:
+        $source = "http://www.coderabhishekchaudhary.com/productDetails.php?id=$id";
+        break;
+    case 5:
+        $source = "http://www.buyselltrade.store/productDetails.php?id=$id";
+        break;
+    case 6:
+        $source = "https://earthdevelopers.chintanvachhani.me/productDetails.php?id=$id";
+        break;
+}
+$ch = curl_init($source);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$contents = curl_exec($ch);
+curl_close($ch);
+
+$data = json_decode($contents, true);
+
+foreach ($data as $product) {
+
+    $image = $product['product_image'];
+    $name = $product['product_name'];
+    $description = $product['product_description'];
+    $price = $product['product_price'];
+
+    if (isset($_SESSION['user'])) {
+
+        $key = $_SESSION['user'];
+        // replace space with underscore for key names
+        $key = str_replace('.', '__', $key);
+        if (isset($_COOKIE[$key])) {
+            $curVal = $_COOKIE[$key];
+
+            $v = $id . "_" . $src;
+            $data = $curVal . "," . $v;
+            setcookie($key, $data, time() + (3600 * 24 * 7), "/");
+        } else {
+            $v = $id . "_" . $src;
+            setcookie($key, $v, time() + (3600 * 24 * 7), "/");
+        }
+    }
+
+}
+
+?>
+
+<!--count visit-->
+<?php
+$dbc = mysqli_connect("localhost", "root", "password", "marketplace");
+
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
+$fetch_visits = "SELECT * FROM visits WHERE product_id = " . $id . ";";
+
+$fetch_response = mysqli_query($dbc, $fetch_visits);
+
+if (mysqli_num_rows($fetch_response) > 0) {
+    $row = mysqli_fetch_assoc($fetch_response);
+    $visits = $row['visits'];
+    ++$visits;
+    $upd_visits = "UPDATE visits set visits = " . $visits . " WHERE product_id = " . $id . ";";
+
+    $upd_response = mysqli_query($dbc, $upd_visits);
+} else {
+    $visits = 1;
+    $visits_query = "INSERT INTO visits(product_id,visits,website_identifier) VALUES (" . $id . "," . $visits . "," . $src . ");";
+
+    $visits_response = mysqli_query($dbc, $visits_query);
+
+}
+
+mysqli_close($dbc);
+?>
+<!-- //count visit -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +134,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 </head>
-
 <body>
 <!-- header -->
 <div class="logo_products">
@@ -89,12 +180,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="row">
                                 <div class="multi-gd-img">
                                     <ul class="multi-column-dropdown">
-                                        <li><a href="">Website 1</a></li>
-                                        <li><a href="">Website 2</a></li>
-                                        <li><a href="">Website 3</a></li>
-                                        <li><a href="">Website 4</a></li>
-                                        <li><a href="">Website 5</a></li>
-                                        <li><a href="">Website 6</a></li>
+                                        <li><a href="">Gizmo Life</a></li>
+                                        <li><a href="">Spicy Food</a></li>
+                                        <li><a href="">Sidhuz Shop</a></li>
+                                        <li><a href="">CoderAbhishekChaudhary</a></li>
+                                        <li><a href="">Buy-Sell-Trade</a></li>
+                                        <li><a href="">Earth Developers</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -102,7 +193,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </li>
                     <li><a href="checkout.php">My Cart</a></li>
                     <li><?php
-                        session_start();
+                        //                        session_start();
                         if (isset($_SESSION['user'])) {
                             echo '<a href="logout.php"><span>Logout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000;">' . $_SESSION["user"] . '</span></span></a></li>';
                         } else {
@@ -115,49 +206,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 </div>
 
-<?php
-$id = $_GET['id'];
-$src = $_GET['w'];
-$source = '';
-
-switch ($src) {
-    case 1:
-        $source = "http://www.gizmolife.org/marketplace/productDetails.php?id=$id";
-        break;
-    case 2:
-        $source = "http://www.spicyfood.co/productDetails.php?id=$id";
-        break;
-    case 3:
-        $source = "http://www.sidhuzshop.com/productDetails.php?id=$id";
-        break;
-    case 4:
-        $source = "http://www.coderabhishekchaudhary.com/productDetails.php?id=$id";
-        break;
-    case 5:
-        $source = "http://www.buyselltrade.store/productDetails.php?id=$id";
-        break;
-    case 6:
-        $source = "https://earthdevelopers.chintanvachhani.me/productDetails.php?id=$id";
-        break;
-}
-$ch = curl_init($source);
-curl_setopt($ch, CURLOPT_HEADER, 0);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$contents = curl_exec($ch);
-curl_close($ch);
-
-$data = json_decode($contents, true);
-
-foreach ($data as $product) {
-
-    $image = $product['product_image'];
-    $name = $product['product_name'];
-    $description = $product['product_description'];
-    $price = $product['product_price'];
-}
-
-?>
-
 <div class="products">
     <div class="container">
         <div class="agileinfo_single">
@@ -168,7 +216,6 @@ foreach ($data as $product) {
             </div>
             <div class="col-md-8 agileinfo_single_right">
                 <h2><?php echo $name; ?></h2>
-
 
 
                 <div class="w3agile_description">
@@ -275,7 +322,7 @@ foreach ($data as $product) {
             <?php
 
             //set up database connection
-            $dbc = mysqli_connect("localhost", "root", "root", "marketplace");
+            $dbc = mysqli_connect("localhost", "root", "password", "marketplace");
             if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
             }
