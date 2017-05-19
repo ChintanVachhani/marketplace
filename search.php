@@ -351,7 +351,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 }
 
-                $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+                $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " AND rating > 0 GROUP BY product_id;";
 
                 $fetch_response = mysqli_query($dbc, $fetch_reviews);
 

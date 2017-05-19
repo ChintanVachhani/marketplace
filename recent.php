@@ -87,12 +87,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="row">
                                 <div class="multi-gd-img">
                                     <ul class="multi-column-dropdown">
-                                        <li><a href="">Gizmo Life</a></li>
-                                        <li><a href="">Spicy Food</a></li>
-                                        <li><a href="">Sidhuz Shop</a></li>
-                                        <li><a href="">CoderAbhishekChaudhary</a></li>
-                                        <li><a href="">Buy-Sell-Trade</a></li>
-                                        <li><a href="">Earth Developers</a></li>
+                                        <li><a href="nativeProducts.php?id=1">Gizmo Life</a></li>
+                                        <li><a href="nativeProducts.php?id=2">Spicy Food</a></li>
+                                        <li><a href="nativeProducts.php?id=3">Sidhuz Shop</a></li>
+                                        <li><a href="nativeProducts.php?id=4">CoderAbhishekChaudhary</a></li>
+                                        <li><a href="nativeProducts.php?id=5">Buy-Sell-Trade</a></li>
+                                        <li><a href="nativeProducts.php?id=6">Earth Developers</a></li>
                                     </ul>
                                 </div>
 
@@ -269,7 +269,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         echo "Failed to connect to MySQL: " . mysqli_connect_error();
                     }
 
-                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " AND rating > 0 GROUP BY product_id;";
 
                     $fetch_response = mysqli_query($dbc, $fetch_reviews);
 
@@ -328,7 +328,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         echo "Failed to connect to MySQL: " . mysqli_connect_error();
                     }
 
-                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " AND rating > 0 GROUP BY product_id;";
 
                     $fetch_response = mysqli_query($dbc, $fetch_reviews);
 
@@ -387,7 +387,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         echo "Failed to connect to MySQL: " . mysqli_connect_error();
                     }
 
-                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " AND rating > 0 GROUP BY product_id;";
 
                     $fetch_response = mysqli_query($dbc, $fetch_reviews);
 
@@ -446,7 +446,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         echo "Failed to connect to MySQL: " . mysqli_connect_error();
                     }
 
-                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " AND rating > 0 GROUP BY product_id;";
 
                     $fetch_response = mysqli_query($dbc, $fetch_reviews);
 
@@ -505,7 +505,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         echo "Failed to connect to MySQL: " . mysqli_connect_error();
                     }
 
-                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " AND rating > 0 GROUP BY product_id;";
 
                     $fetch_response = mysqli_query($dbc, $fetch_reviews);
 
@@ -564,7 +564,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         echo "Failed to connect to MySQL: " . mysqli_connect_error();
                     }
 
-                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " AND rating > 0 GROUP BY product_id;";
 
                     $fetch_response = mysqli_query($dbc, $fetch_reviews);
 
