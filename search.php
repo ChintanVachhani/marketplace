@@ -16,6 +16,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //for-mobile-apps -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/review.css" rel="stylesheet" type="text/css">
     <!-- font-awesome icons -->
     <link href="css/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->
@@ -86,12 +87,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="row">
                                 <div class="multi-gd-img">
                                     <ul class="multi-column-dropdown">
-                                        <li><a href="">Gizmo Life</a></li>
-                                        <li><a href="">Spicy Food</a></li>
-                                        <li><a href="">Sidhuz Shop</a></li>
-                                        <li><a href="">CoderAbhishekChaudhary</a></li>
-                                        <li><a href="">Buy-Sell-Trade</a></li>
-                                        <li><a href="">Earth Developers</a></li>
+                                        <li><a href="nativeProducts.php?id=1">Gizmo Life</a></li>
+                                        <li><a href="nativeProducts.php?id=2">Spicy Food</a></li>
+                                        <li><a href="nativeProducts.php?id=3">Sidhuz Shop</a></li>
+                                        <li><a href="nativeProducts.php?id=4">CoderAbhishekChaudhary</a></li>
+                                        <li><a href="nativeProducts.php?id=5">Buy-Sell-Trade</a></li>
+                                        <li><a href="nativeProducts.php?id=6">Earth Developers</a></li>
                                     </ul>
                                 </div>
 
@@ -99,8 +100,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </ul>
                     </li>
                     <li><a href="checkout.php">My Cart</a></li>
+                    <?php
+                    session_start();
+                    if (isset($_SESSION['user'])) {
+                        echo '<li><a href="recent.php"><span>User Activity</span></a></li>';
+                    }
+                    ?>
                     <li><?php
-                        session_start();
                         if (isset($_SESSION['user'])) {
                             echo '<a href="logout.php"><span>Logout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000;">' . $_SESSION["user"] . '</span></span></a></li>';
                         } else {
@@ -141,53 +147,46 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $list = array();
 
 
-            /* $ch = curl_init("http://www.gizmolife.org/search.php?query=$searchQuery");
+            $ch = curl_init("http://www.gizmolife.org/search.php?query=$searchQuery");
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $contents = curl_exec($ch);
             curl_close($ch);
             $list1 = json_decode($contents, true);
-            $list = array_merge($list, $list1); */
-
-            ?><!--
-
-            <?php
-            /*            $ch = curl_init("http://www.spicyfood.co/search.php?query=$searchQuery");
-                        curl_setopt($ch, CURLOPT_HEADER, 0);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                        $contents = curl_exec($ch);
-                        $list2 = json_decode($contents, true);
-                        curl_close($ch);
-                        $list = array_merge($list, $list2);
-
-
-                        */ ?>
+            $list = array_merge($list, $list1);
+            ?>
 
             <?php
-            /*            $ch = curl_init("http://www.sidhuzshop.com/search.php?query=$searchQuery");
-                        curl_setopt($ch, CURLOPT_HEADER, 0);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                        $contents = curl_exec($ch);
-                        $list3 = json_decode($contents, true);
-                        curl_close($ch);
-                        $list = array_merge($list, $list3);
-
-
-                        */ ?>
+            $ch = curl_init("http://www.spicyfood.co/search.php?query=$searchQuery");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list2 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list2);
+            ?>
 
             <?php
-            /*            $ch = curl_init("http://www.coderabhishekchaudhary.com/search.php?query=$searchQuery");
-                        curl_setopt($ch, CURLOPT_HEADER, 0);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                        $contents = curl_exec($ch);
-                        $list4 = json_decode($contents, true);
-                        curl_close($ch);
-                        $list = array_merge($list, $list4);
+            $ch = curl_init("https://sidhuzshop.000webhostapp.com/search.php?query=$searchQuery");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list3 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list3);
+            ?>
 
+            <?php
+            $ch = curl_init("http://www.coderabhishekchaudhary.com/search.php?query=$searchQuery");
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $contents = curl_exec($ch);
+            $list4 = json_decode($contents, true);
+            curl_close($ch);
+            $list = array_merge($list, $list4);
+            ?>
 
-                        */ ?>
-
-            --><?php
+            <?php
             $ch = curl_init("http://www.buyselltrade.store/search.php?query=$searchQuery");
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -216,8 +215,100 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             switch ($_POST['sortCriteria']) {
                 case 1:
+                    echo "<script>$('#sortCriteria option[value=1]').prop('selected', 'selected').change();</script>";
+
+                    $list = array();
+
+                    $ch = curl_init("https://marketplace.chintanvachhani.me/sortByPopularity.php");
+                    curl_setopt($ch, CURLOPT_HEADER, 0);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    $contents = curl_exec($ch);
+                    curl_close($ch);
+
+                    $data = json_decode($contents, true);
+
+                    foreach ($data as $item) {
+                        $id = $item['product_id'];
+                        $src = $item['website_identifier'];
+                        $source = '';
+
+                        switch ($src) {
+                            case 1:
+                                $source = "http://www.gizmolife.org/marketplace/productDetails.php?id=$id";
+                                break;
+                            case 2:
+                                $source = "http://www.spicyfood.co/productDetails.php?id=$id";
+                                break;
+                            case 3:
+                                $source = "https://sidhuzshop.000webhostapp.com/productDetails.php?id=$id";
+                                break;
+                            case 4:
+                                $source = "http://www.coderabhishekchaudhary.com/productDetails.php?id=$id";
+                                break;
+                            case 5:
+                                $source = "http://www.buyselltrade.store/productDetails.php?id=$id";
+                                break;
+                            case 6:
+                                $source = "https://earthdevelopers.chintanvachhani.me/productDetails.php?id=$id";
+                                break;
+                        }
+
+                        $chI = curl_init($source);
+                        curl_setopt($chI, CURLOPT_HEADER, 0);
+                        curl_setopt($chI, CURLOPT_RETURNTRANSFER, 1);
+                        $contentsI = curl_exec($chI);
+                        $dataI = json_decode($contentsI, true);
+                        curl_close($chI);
+                        $list = array_merge($list, $dataI);
+                    }
                     break;
                 case 2:
+                    echo "<script>$('#sortCriteria option[value=2]').prop('selected', 'selected').change();</script>";
+                    $list = array();
+
+                    $ch = curl_init("https://marketplace.chintanvachhani.me/sortByRating.php");
+                    curl_setopt($ch, CURLOPT_HEADER, 0);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    $contents = curl_exec($ch);
+                    curl_close($ch);
+
+                    $data = json_decode($contents, true);
+
+                    foreach ($data as $item) {
+                        $id = $item['product_id'];
+                        $src = $item['website_identifier'];
+                        $source = '';
+
+                        switch ($src) {
+                            case 1:
+                                $source = "http://www.gizmolife.org/marketplace/productDetails.php?id=$id";
+                                break;
+                            case 2:
+                                $source = "http://www.spicyfood.co/productDetails.php?id=$id";
+                                break;
+                            case 3:
+                                $source = "https://sidhuzshop.000webhostapp.com/productDetails.php?id=$id";
+                                break;
+                            case 4:
+                                $source = "http://www.coderabhishekchaudhary.com/productDetails.php?id=$id";
+                                break;
+                            case 5:
+                                $source = "http://www.buyselltrade.store/productDetails.php?id=$id";
+                                break;
+                            case 6:
+                                $source = "https://earthdevelopers.chintanvachhani.me/productDetails.php?id=$id";
+                                break;
+                        }
+
+                        $chI = curl_init($source);
+                        curl_setopt($chI, CURLOPT_HEADER, 0);
+                        curl_setopt($chI, CURLOPT_RETURNTRANSFER, 1);
+                        $contentsI = curl_exec($chI);
+                        $dataI = json_decode($contentsI, true);
+                        curl_close($chI);
+                        $list = array_merge($list, $dataI);
+                    }
+
                     break;
                 case 3:
                     echo "<script>$('#sortCriteria option[value=3]').prop('selected', 'selected').change();</script>";
@@ -250,20 +341,67 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $identifier = $product['website_identifier'];
                 echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                 echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><div class=\"stars\"><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star gray-star\" aria-hidden=\"true\"></i></div><h4>$$price </h4></div>";
+                echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p>";
+
+                $prod_id = $id;
+
+                //set up database connection
+                $dbc = mysqli_connect("localhost", "root", "password", "marketplace");
+                if (mysqli_connect_errno()) {
+                    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                }
+
+                $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+
+                $fetch_response = mysqli_query($dbc, $fetch_reviews);
+
+                if (mysqli_num_rows($fetch_response) > 0) {
+                    // output data of each row
+                    echo "<div class='ratings'>";
+                    while ($row = mysqli_fetch_array($fetch_response, MYSQLI_ASSOC)) {
+                        $no_of_stars = $row['Rating'];
+                        echo "<p>" . show_ratings($no_of_stars) . "</p>";
+                    }
+                    echo "</div>";
+                } else {
+                    echo "<p>" . show_ratings(0) . "</p>";
+                }
+                mysqli_close($dbc);
+                echo "<h4>$$price </h4></div>";
                 echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                 echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
                 echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
                 echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
                 echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                 echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
-                if ($i % 3 == 0  || $i == count($list)) {
+                if ($i % 3 == 0 || $i == count($list)) {
                     echo "</div><div class='clearfix'></div></div>";
                 } else {
                     echo "</div>";
                 }
                 $i++;
             }
+
+            // Function to generate the HTML to display ratings STARs based on the value of column "ratings" in database table for each record.
+            function show_ratings($product_rating)
+            {
+                $count_rows = 1;
+                $out = "";
+
+                // Loop to print the filled star ratings.
+                while ($count_rows <= (int)$product_rating) {
+                    $out .= "<span class='glyphicon glyphicon-star' style='color:gold'></span>";
+                    $count_rows += 1;
+                }
+
+                // Loop to print unfilled star ratings.
+                while ($count_rows <= 5) {
+                    $out .= "<span class='glyphicon glyphicon-star-empty' style='color:gold'></span>";
+                    $count_rows += 1;
+                }
+                return $out;
+            }
+
             ?>
         </div>
     </div>

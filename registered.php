@@ -86,20 +86,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="row">
                                 <div class="multi-gd-img">
                                     <ul class="multi-column-dropdown">
-                                        <li><a href="">Gizmo Life</a></li>
-                                        <li><a href="">Spicy Food</a></li>
-                                        <li><a href="">Sidhuz Shop</a></li>
-                                        <li><a href="">CoderAbhishekChaudhary</a></li>
-                                        <li><a href="">Buy-Sell-Trade</a></li>
-                                        <li><a href="">Earth Developers</a></li>
+                                        <li><a href="nativeProducts.php?id=1">Gizmo Life</a></li>
+                                        <li><a href="nativeProducts.php?id=2">Spicy Food</a></li>
+                                        <li><a href="nativeProducts.php?id=3">Sidhuz Shop</a></li>
+                                        <li><a href="nativeProducts.php?id=4">CoderAbhishekChaudhary</a></li>
+                                        <li><a href="nativeProducts.php?id=5">Buy-Sell-Trade</a></li>
+                                        <li><a href="nativeProducts.php?id=6">Earth Developers</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </ul>
                     </li>
                     <li><a href="checkout.php">My Cart</a></li>
+                    <?php
+                    session_start();
+                    if (isset($_SESSION['user'])) {
+                        echo '<li><a href="recent.php"><span>User Activity</span></a></li>';
+                    }
+                    ?>
                     <li><?php
-                        session_start();
                         if (isset($_SESSION['user'])) {
                             echo '<a href="logout.php"><span>Logout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000;">' . $_SESSION["user"] . '</span></span></a></li>';
                         } else {

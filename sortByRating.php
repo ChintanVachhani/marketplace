@@ -8,10 +8,9 @@ $dbname = "marketplace";
 $conn = new mysqli($servername, $username, $password, $dbname);
 // check connection
 if ($conn->connect_error) {
-    echo "Connection error: ".$conn->connect_error;
-}
-else {
-    $sql = "SELECT product_id,website_identifier FROM ratings GROUP BY product_id,website_identifier ORDER BY round(avg(rating)) DESC LIMIT 5;";
+    echo "Connection error: " . $conn->connect_error;
+} else {
+    $sql = "SELECT product_id,website_identifier FROM ratings GROUP BY product_id,website_identifier ORDER BY round(avg(rating)) DESC;";
     $result = $conn->query($sql);
     $rows = array();
     while ($row = mysqli_fetch_assoc($result)) {

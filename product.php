@@ -11,7 +11,7 @@ switch ($src) {
         $source = "http://www.spicyfood.co/productDetails.php?id=$id";
         break;
     case 3:
-        $source = "http://www.sidhuzshop.com/productDetails.php?id=$id";
+        $source = "https://sidhuzshop.000webhostapp.com/productDetails.php?id=$id";
         break;
     case 4:
         $source = "http://www.coderabhishekchaudhary.com/productDetails.php?id=$id";
@@ -180,20 +180,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="row">
                                 <div class="multi-gd-img">
                                     <ul class="multi-column-dropdown">
-                                        <li><a href="">Gizmo Life</a></li>
-                                        <li><a href="">Spicy Food</a></li>
-                                        <li><a href="">Sidhuz Shop</a></li>
-                                        <li><a href="">CoderAbhishekChaudhary</a></li>
-                                        <li><a href="">Buy-Sell-Trade</a></li>
-                                        <li><a href="">Earth Developers</a></li>
+                                        <li><a href="nativeProducts.php?id=1">Gizmo Life</a></li>
+                                        <li><a href="nativeProducts.php?id=2">Spicy Food</a></li>
+                                        <li><a href="nativeProducts.php?id=3">Sidhuz Shop</a></li>
+                                        <li><a href="nativeProducts.php?id=4">CoderAbhishekChaudhary</a></li>
+                                        <li><a href="nativeProducts.php?id=5">Buy-Sell-Trade</a></li>
+                                        <li><a href="nativeProducts.php?id=6">Earth Developers</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </ul>
                     </li>
                     <li><a href="checkout.php">My Cart</a></li>
+                    <?php
+                    if (isset($_SESSION['user'])) {
+                        echo '<li><a href="recent.php"><span>User Activity</span></a></li>';
+                    }
+                    ?>
                     <li><?php
-                        //                        session_start();
                         if (isset($_SESSION['user'])) {
                             echo '<a href="logout.php"><span>Logout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000;">' . $_SESSION["user"] . '</span></span></a></li>';
                         } else {
@@ -217,6 +221,63 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="col-md-8 agileinfo_single_right">
                 <h2><?php echo $name; ?></h2>
 
+                <?php
+
+                $prod_id = $_GET['id'];
+
+                //set up database connection
+                $dbc = mysqli_connect("localhost", "root", "password", "marketplace");
+                if (mysqli_connect_errno()) {
+                    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                }
+
+                $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id .
+                    " GROUP BY product_id;";
+
+                // echo $fetch_reviews;
+
+                $fetch_response = mysqli_query($dbc, $fetch_reviews);
+
+                if (mysqli_num_rows($fetch_response) > 0) {
+
+                    // output data of each row
+                    echo "<div class='ratings'>";
+                    while ($row = mysqli_fetch_array($fetch_response, MYSQLI_ASSOC)) {
+
+                        $no_of_stars = $row['Rating'];
+
+                        echo "<p>" . show_ratings($no_of_stars) . "</p>";
+
+
+                    }
+                    echo "</div>";
+
+                } else {
+                    echo "<p>" . show_ratings(0) . "</p>";
+                }
+
+                // Function to generate the HTML to display ratings STARs based on the value of column "ratings" in database table for each record.
+                function show_ratings($product_rating)
+                {
+                    $count_rows = 1;
+                    $out = "";
+
+                    // Loop to print the filled star ratings.
+                    while ($count_rows <= (int)$product_rating) {
+                        $out .= "<span class='glyphicon glyphicon-star' style='color:gold'></span>";
+                        $count_rows += 1;
+                    }
+
+                    // Loop to print unfilled star ratings.
+                    while ($count_rows <= 5) {
+                        $out .= "<span class='glyphicon glyphicon-star-empty' style='color:gold'></span>";
+                        $count_rows += 1;
+                    }
+                    return $out;
+
+                }
+
+                ?>
 
                 <div class="w3agile_description">
                     <h4>Description :</h4>
@@ -303,13 +364,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="titleBox" style="padding-bottom: 20px;">
                 <label>User Reviews</label>
                 <?php
-                session_start();
                 if (isset($_SESSION['user'])) {
                     echo '<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal"
                         id="newQuoteButton" style="float: right;">Add Review</button>';
                 } else {
-                    echo '<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal"
-                        style="float: right;color: ">Please Login to Add Review</button>';
+                    echo '<a href="login.php"><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal"
+                        style="float: right;color: ">Please Login to Add Review</button></a>';
                 }
                 ?>
 
@@ -321,24 +381,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <?php
 
+            $prod_id = $_GET['id'];
+
             //set up database connection
             $dbc = mysqli_connect("localhost", "root", "password", "marketplace");
             if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
             }
 
-            ?>
+            $fetch_reviews = "SELECT * FROM marketplace.reviews WHERE product_id = " . $prod_id . " ORDER BY id DESC;";
 
-            <div class="actionBox">
-                <ul class="commentList">
-                    <li>
-                        <div class="commentText">
-                            <p class="">Hello this is a test comment.</p>
-                            <span class="date sub-text">on March 5th, 2014</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+
+            $fetch_response = mysqli_query($dbc, $fetch_reviews);
+
+
+            if (mysqli_num_rows($fetch_response) > 0) {
+                // output data of each row
+                while ($row = mysqli_fetch_array($fetch_response, MYSQLI_ASSOC)) {
+                    echo '
+                        <div class="actionBox">
+                            <ul class="commentList">
+                                <li>
+                                    <div class="commentText">
+                                        <p class="">' . $row["comments"] . '</p>
+                                        <p></p><span class="date sub-text"><b>' . $row["user_email"] . '</b> - on '
+                        . $row["timestamp"] . '</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>';
+                }
+            } else {
+                echo "<h6 style='margin: 10px;'>No User Reviews Yet</h6>";
+            }
+
+            ?>
 
         </div>
     </div>

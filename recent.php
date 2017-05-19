@@ -16,6 +16,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //for-mobile-apps -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/review.css" rel="stylesheet" type="text/css">
     <!-- font-awesome icons -->
     <link href="css/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->
@@ -99,8 +100,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </ul>
                     </li>
                     <li><a href="checkout.php">My Cart</a></li>
+                    <?php
+                    session_start();
+                    if (isset($_SESSION['user'])) {
+                        echo '<li><a href="recent.php"><span>User Activity</span></a></li>';
+                    }
+                    ?>
                     <li><?php
-                        session_start();
                         if (isset($_SESSION['user'])) {
                             echo '<a href="logout.php"><span>Logout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000;">' . $_SESSION["user"] . '</span></span></a></li>';
                         } else {
@@ -182,7 +188,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     $prodList2 = array_merge($prodList2, $data2);
                                     break;
                                 case 3:
-                                    $source = "http://www.sidhuzshop.com/productDetails.php?id=$prod";
+                                    $source = "https://sidhuzshop.000webhostapp.com/productDetails.php?id=$prod";
                                     $ch = curl_init($source);
                                     curl_setopt($ch, CURLOPT_HEADER, 0);
                                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -239,7 +245,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
 
             }
-            echo "<div class='alert alert-info'>Recently Visited Products from http://www.gizmolife.org</div>";
+            echo "<div class='alert alert-info' style='text-align: center'><h4>Gizmo Life</h4></div>";
             if (sizeof($prodList1) > 0) {
                 $i = 1;
                 foreach ($prodList1 as $product) {
@@ -253,27 +259,52 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $identifier = $product['website_identifier'];
                     echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                     echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><div class=\"stars\"><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star gray-star\" aria-hidden=\"true\"></i></div><h4>$$price </h4></div>";
+                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p>";
+
+                    $prod_id = $id;
+
+                    //set up database connection
+                    $dbc = mysqli_connect("localhost", "root", "password", "marketplace");
+                    if (mysqli_connect_errno()) {
+                        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                    }
+
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+
+                    $fetch_response = mysqli_query($dbc, $fetch_reviews);
+
+                    if (mysqli_num_rows($fetch_response) > 0) {
+                        // output data of each row
+                        echo "<div class='ratings'>";
+                        while ($row = mysqli_fetch_array($fetch_response, MYSQLI_ASSOC)) {
+                            $no_of_stars = $row['Rating'];
+                            echo "<p>" . show_ratings($no_of_stars) . "</p>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<p>" . show_ratings(0) . "</p>";
+                    }
+                    mysqli_close($dbc);
+                    echo "<h4>$$price </h4></div>";
                     echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                     echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
                     echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
                     echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
                     echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                     echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
-                    if ($i % 3 == 0 || $i == sizeof($prodList1)) {
+                    if ($i % 3 == 0 || $i == count($prodList1)) {
                         echo "</div><div class='clearfix'></div></div>";
                     } else {
                         echo "</div>";
                     }
                     $i++;
                 }
+                echo "<br/><br/>";
             } else {
-
-                echo "<div>No products visited </div>";
-
+                echo "<div style='text-align: center'><h6>No products visited yet.</h6></div><br/><br/>";
             }
             echo "<div class='clearfix'></div>";
-            echo "<div class='alert alert-info'>Recently Visited Products from http://www.spicyfood.co</div>";
+            echo "<div class='alert alert-info' style='text-align: center'><h4>Spicy Food</h4></div>";
             if (sizeof($prodList2) > 0) {
                 $i = 1;
                 foreach ($prodList2 as $product) {
@@ -287,27 +318,52 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $identifier = $product['website_identifier'];
                     echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                     echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><div class=\"stars\"><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star gray-star\" aria-hidden=\"true\"></i></div><h4>$$price </h4></div>";
+                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p>";
+
+                    $prod_id = $id;
+
+                    //set up database connection
+                    $dbc = mysqli_connect("localhost", "root", "password", "marketplace");
+                    if (mysqli_connect_errno()) {
+                        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                    }
+
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+
+                    $fetch_response = mysqli_query($dbc, $fetch_reviews);
+
+                    if (mysqli_num_rows($fetch_response) > 0) {
+                        // output data of each row
+                        echo "<div class='ratings'>";
+                        while ($row = mysqli_fetch_array($fetch_response, MYSQLI_ASSOC)) {
+                            $no_of_stars = $row['Rating'];
+                            echo "<p>" . show_ratings($no_of_stars) . "</p>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<p>" . show_ratings(0) . "</p>";
+                    }
+                    mysqli_close($dbc);
+                    echo "<h4>$$price </h4></div>";
                     echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                     echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
                     echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
                     echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
                     echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                     echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
-                    if ($i % 3 == 0 || $i == sizeof($prodList2)) {
+                    if ($i % 3 == 0 || $i == count($prodList2)) {
                         echo "</div><div class='clearfix'></div></div>";
                     } else {
                         echo "</div>";
                     }
                     $i++;
                 }
+                echo "<br/><br/>";
             } else {
-
-                echo "<div>No products visited </div>";
-
+                echo "<div style='text-align: center'><h6>No products visited yet.</h6></div><br/><br/>";
             }
             echo "<div class='clearfix'></div>";
-            echo "<div class='alert alert-info'>Recently Visited Products from http://www.sidhuzshop.com</div>";
+            echo "<div class='alert alert-info' style='text-align: center'><h4>Sidhuz Shop</h4></div>";
             if (sizeof($prodList3) > 0) {
                 $i = 1;
                 foreach ($prodList3 as $product) {
@@ -321,27 +377,52 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $identifier = $product['website_identifier'];
                     echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                     echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><div class=\"stars\"><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star gray-star\" aria-hidden=\"true\"></i></div><h4>$$price </h4></div>";
+                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p>";
+
+                    $prod_id = $id;
+
+                    //set up database connection
+                    $dbc = mysqli_connect("localhost", "root", "password", "marketplace");
+                    if (mysqli_connect_errno()) {
+                        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                    }
+
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+
+                    $fetch_response = mysqli_query($dbc, $fetch_reviews);
+
+                    if (mysqli_num_rows($fetch_response) > 0) {
+                        // output data of each row
+                        echo "<div class='ratings'>";
+                        while ($row = mysqli_fetch_array($fetch_response, MYSQLI_ASSOC)) {
+                            $no_of_stars = $row['Rating'];
+                            echo "<p>" . show_ratings($no_of_stars) . "</p>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<p>" . show_ratings(0) . "</p>";
+                    }
+                    mysqli_close($dbc);
+                    echo "<h4>$$price </h4></div>";
                     echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                     echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
                     echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
                     echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
                     echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                     echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
-                    if ($i % 3 == 0 || $i == sizeof($prodList3)) {
+                    if ($i % 3 == 0 || $i == count($prodList3)) {
                         echo "</div><div class='clearfix'></div></div>";
                     } else {
                         echo "</div>";
                     }
                     $i++;
                 }
+                echo "<br/><br/>";
             } else {
-
-                echo "<div>No products visited </div>";
-
+                echo "<div style='text-align: center'><h6>No products visited yet.</h6></div><br/><br/>";
             }
             echo "<div class='clearfix'></div>";
-            echo "<div class='alert alert-info'>Recently Visited Products from http://www.coderabhishekchaudhary.com</div>";
+            echo "<div class='alert alert-info' style='text-align: center'><h4>Coder</h4></div>";
             if (sizeof($prodList4) > 0) {
                 $i = 1;
                 foreach ($prodList4 as $product) {
@@ -355,27 +436,52 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $identifier = $product['website_identifier'];
                     echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                     echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><div class=\"stars\"><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star gray-star\" aria-hidden=\"true\"></i></div><h4>$$price </h4></div>";
+                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p>";
+
+                    $prod_id = $id;
+
+                    //set up database connection
+                    $dbc = mysqli_connect("localhost", "root", "password", "marketplace");
+                    if (mysqli_connect_errno()) {
+                        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                    }
+
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+
+                    $fetch_response = mysqli_query($dbc, $fetch_reviews);
+
+                    if (mysqli_num_rows($fetch_response) > 0) {
+                        // output data of each row
+                        echo "<div class='ratings'>";
+                        while ($row = mysqli_fetch_array($fetch_response, MYSQLI_ASSOC)) {
+                            $no_of_stars = $row['Rating'];
+                            echo "<p>" . show_ratings($no_of_stars) . "</p>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<p>" . show_ratings(0) . "</p>";
+                    }
+                    mysqli_close($dbc);
+                    echo "<h4>$$price </h4></div>";
                     echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                     echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
                     echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
                     echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
                     echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                     echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
-                    if ($i % 3 == 0 || $i == sizeof($prodList4)) {
+                    if ($i % 3 == 0 || $i == count($prodList4)) {
                         echo "</div><div class='clearfix'></div></div>";
                     } else {
                         echo "</div>";
                     }
                     $i++;
                 }
+                echo "<br/><br/>";
             } else {
-
-                echo "<div>No products visited </div>";
-
+                echo "<div style='text-align: center'><h6>No products visited yet.</h6></div><br/><br/>";
             }
             echo "<div class='clearfix'></div>";
-            echo "<div class='alert alert-info'>Recently Visited Products from http://www.buyselltrade.store</div>";
+            echo "<div class='alert alert-info' style='text-align: center'><h4>Buy Sell Trade</h4></div>";
             if (sizeof($prodList5) > 0) {
                 $i = 1;
                 foreach ($prodList5 as $product) {
@@ -389,26 +495,52 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $identifier = $product['website_identifier'];
                     echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                     echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><div class=\"stars\"><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star gray-star\" aria-hidden=\"true\"></i></div><h4>$$price </h4></div>";
+                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p>";
+
+                    $prod_id = $id;
+
+                    //set up database connection
+                    $dbc = mysqli_connect("localhost", "root", "password", "marketplace");
+                    if (mysqli_connect_errno()) {
+                        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                    }
+
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+
+                    $fetch_response = mysqli_query($dbc, $fetch_reviews);
+
+                    if (mysqli_num_rows($fetch_response) > 0) {
+                        // output data of each row
+                        echo "<div class='ratings'>";
+                        while ($row = mysqli_fetch_array($fetch_response, MYSQLI_ASSOC)) {
+                            $no_of_stars = $row['Rating'];
+                            echo "<p>" . show_ratings($no_of_stars) . "</p>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<p>" . show_ratings(0) . "</p>";
+                    }
+                    mysqli_close($dbc);
+                    echo "<h4>$$price </h4></div>";
                     echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                     echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
                     echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
                     echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
                     echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                     echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
-                    if ($i % 3 == 0 || $i == sizeof($prodList5)) {
+                    if ($i % 3 == 0 || $i == count($prodList5)) {
                         echo "</div><div class='clearfix'></div></div>";
                     } else {
                         echo "</div>";
                     }
                     $i++;
                 }
+                echo "<br/><br/>";
             } else {
-                echo "<div>No products visited </div>";
+                echo "<div style='text-align: center'><h6>No products visited yet.</h6></div><br/><br/>";
 
             }
-            echo "<div class='clearfix'></div>";
-            echo "<div class='alert alert-info'>Recently Visited Products from https://earthdevelopers.chintanvachhani.me</div>";
+            echo "<div class='alert alert-info' style='text-align: center'><h4>Earth Developers</h4></div>";
             if (sizeof($prodList6) > 0) {
                 $i = 1;
                 foreach ($prodList6 as $product) {
@@ -422,25 +554,72 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $identifier = $product['website_identifier'];
                     echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                     echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p><div class=\"stars\"><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star blue-star\" aria-hidden=\"true\"></i><i class=\"fa fa-star gray-star\" aria-hidden=\"true\"></i></div><h4>$$price </h4></div>";
+                    echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p>";
+
+                    $prod_id = $id;
+
+                    //set up database connection
+                    $dbc = mysqli_connect("localhost", "root", "password", "marketplace");
+                    if (mysqli_connect_errno()) {
+                        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                    }
+
+                    $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " GROUP BY product_id;";
+
+                    $fetch_response = mysqli_query($dbc, $fetch_reviews);
+
+                    if (mysqli_num_rows($fetch_response) > 0) {
+                        // output data of each row
+                        echo "<div class='ratings'>";
+                        while ($row = mysqli_fetch_array($fetch_response, MYSQLI_ASSOC)) {
+                            $no_of_stars = $row['Rating'];
+                            echo "<p>" . show_ratings($no_of_stars) . "</p>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<p>" . show_ratings(0) . "</p>";
+                    }
+                    mysqli_close($dbc);
+                    echo "<h4>$$price </h4></div>";
                     echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                     echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
                     echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
                     echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
                     echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                     echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
-                    if ($i % 3 == 0 || $i == sizeof($prodList6)) {
+                    if ($i % 3 == 0 || $i == count($prodList6)) {
                         echo "</div><div class='clearfix'></div></div>";
                     } else {
                         echo "</div>";
                     }
                     $i++;
                 }
+                echo "<br/><br/>";
             } else {
 
-                echo "<div>No products visited </div>";
+                echo "<div style='text-align: center'><h6>No products visited yet.</h6></div><br/><br/>";
 
             }
+            // Function to generate the HTML to display ratings STARs based on the value of column "ratings" in database table for each record.
+            function show_ratings($product_rating)
+            {
+                $count_rows = 1;
+                $out = "";
+
+                // Loop to print the filled star ratings.
+                while ($count_rows <= (int)$product_rating) {
+                    $out .= "<span class='glyphicon glyphicon-star' style='color:gold'></span>";
+                    $count_rows += 1;
+                }
+
+                // Loop to print unfilled star ratings.
+                while ($count_rows <= 5) {
+                    $out .= "<span class='glyphicon glyphicon-star-empty' style='color:gold'></span>";
+                    $count_rows += 1;
+                }
+                return $out;
+            }
+
             ?>
         </div>
     </div>

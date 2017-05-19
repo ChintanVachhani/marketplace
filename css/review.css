@@ -78,3 +78,7 @@
     border-top: 1px dotted #bbb;
     padding: 10px;
 }
+
+.glyphicon {
+    font-size: 20px;
+}
