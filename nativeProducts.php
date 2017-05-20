@@ -210,7 +210,7 @@ switch ($src) {
                             $identifier = $product['website_identifier'];
                             echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                             echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                            echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p>";
+                            echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px'  ></a><p>$name</p>";
 
                             $prod_id = $id;
 
@@ -239,7 +239,7 @@ switch ($src) {
                             echo "<h4>$$price </h4></div>";
                             echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                             echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
-                            echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
+                            echo "<input type='hidden' name='item_name' value='$name'><input type='hidden' name='amount' value='$price'>";
                             echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
                             echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                             echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
@@ -306,7 +306,7 @@ switch ($src) {
                             $identifier2 = $product2['website_identifier'];
                             echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                             echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                            echo "<div class='snipcart-thumb'><a href='product.php?id=$id2&w=$identifier2'><img title=' ' alt=' ' src='$image2' height='150px' width='150px' ></a><p>$name2</p>";
+                            echo "<div class='snipcart-thumb'><a href='product.php?id=$id2&w=$identifier2'><img title=' ' alt=' ' src='$image2' height='150px'  ></a><p>$name2</p>";
 
                             $prod_id = $id2;
 
@@ -335,7 +335,7 @@ switch ($src) {
                             echo "<h4>$$price2 </h4></div>";
                             echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                             echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
-                            echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
+                            echo "<input type='hidden' name='item_name' value='$name'><input type='hidden' name='amount' value='$price'>";
                             echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
                             echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                             echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
@@ -419,7 +419,7 @@ switch ($src) {
 
                 echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                 echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p>";
+                echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px'  ></a><p>$name</p>";
 
                 $prod_id = $id;
 
@@ -448,8 +448,8 @@ switch ($src) {
                 echo "<h4>$$price </h4></div>";
                 echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                 echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
-                echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
-                echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
+                echo "<input type='hidden' name='item_name' value='$name'><input type='hidden' name='amount' value='$price'>";
+                echo "<input type='hidden' name='discount_amount' value='0.00'><input type='hidden' name='currency_code' value='USD'>";
                 echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                 echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
                 if ($i % 3 == 0 || $i == count($list)) {

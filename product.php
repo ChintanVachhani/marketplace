@@ -293,9 +293,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <input type="hidden" name="cmd" value="_cart">
                                 <input type="hidden" name="add" value="1">
                                 <input type="hidden" name="business" value=" ">
-                                <input type="hidden" name="item_name" value="pulao basmati rice">
-                                <input type="hidden" name="amount" value="21.00">
-                                <input type="hidden" name="discount_amount" value="1.00">
+                                <input type="hidden" name="item_name" value="<?php echo $name; ?>">
+                                <input type="hidden" name="amount" value="<?php echo $price; ?>">
+                                <input type="hidden" name="discount_amount" value="0.00">
                                 <input type="hidden" name="currency_code" value="USD">
                                 <input type="hidden" name="return" value=" ">
                                 <input type="hidden" name="cancel_return" value=" ">

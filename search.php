@@ -167,13 +167,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             ?>
 
             <?php
-            $ch = curl_init("https://sidhuzshop.000webhostapp.com/search.php?query=$searchQuery");
+            /*$ch = curl_init("https://sidhuzshop.000webhostapp.com/search.php?query=$searchQuery");
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $contents = curl_exec($ch);
             $list3 = json_decode($contents, true);
             curl_close($ch);
-            $list = array_merge($list, $list3);
+            $list = array_merge($list, $list3);*/
             ?>
 
             <?php
@@ -330,6 +330,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     break;
             }
 
+            if(!$list){
+                echo "<div style='text-align: center'><h2>No results found.</h2></div><br/><br/>";
+            }
+
             foreach ($list as $product) {
                 if ($i % 3 == 1) {
                     echo "<div class='agile_top_brands_grids'>";
@@ -341,7 +345,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $identifier = $product['website_identifier'];
                 echo "<div class='col-md-4 top_brand_left'><div class='hover14 column'><div class='agile_top_brand_left_grid'><div class='agile_top_brand_left_grid_pos'>";
                 echo "</div><div class='agile_top_brand_left_grid1'><figure><div class='snipcart-item block'>";
-                echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px' width='150px' ></a><p>$name</p>";
+                echo "<div class='snipcart-thumb'><a href='product.php?id=$id&w=$identifier'><img title=' ' alt=' ' src='$image' height='150px'  ></a><p>$name</p>";
 
                 $prod_id = $id;
 
@@ -370,8 +374,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 echo "<h4>$$price </h4></div>";
                 echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
                 echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
-                echo "<input type='hidden' name='item_name' value='Fortune Sunflower Oil'><input type='hidden' name='amount' value='35.99'>";
-                echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
+                echo "<input type='hidden' name='item_name' value=$name><input type='hidden' name='amount' value=$price>";
+                echo "<input type='hidden' name='discount_amount' value='0.00'><input type='hidden' name='currency_code' value='USD'>";
                 echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                 echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
                 if ($i % 3 == 0 || $i == count($list)) {
