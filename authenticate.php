@@ -20,8 +20,7 @@ if (mysqli_num_rows($response) > 0) {
     $_SESSION["user"] = $email;
     redirect("index.php");
 } else {
-    echo $query;
-    //redirect("login.php");
+    redirect("login.php");
 }
 
 /*--------------------------helper function------------------------*/

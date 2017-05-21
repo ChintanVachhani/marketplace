@@ -97,9 +97,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                         </ul>
                     </li>
-                    <li><a href="checkout.php">My Cart</a></li>
                     <?php
                     session_start();
+                    if (isset($_SESSION['user'])) {
+                        echo '<li><a href="cart.php">My Cart</a></li>';
+                    }
+                    ?>
+                    <?php
                     if (isset($_SESSION['user'])) {
                         echo '<li><a href="recent.php"><span>User Activity</span></a></li>';
                     }
@@ -238,9 +242,9 @@ switch ($src) {
                             mysqli_close($dbc);
                             echo "<h4>$$price </h4></div>";
                             echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
-                            echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
+                            echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='shipping' value='$id'>";
                             echo "<input type='hidden' name='item_name' value='$name'><input type='hidden' name='amount' value='$price'>";
-                            echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
+                            echo "<input type='hidden' name='shipping2' value='$image'><input type='hidden' name='currency_code' value='USD'>";
                             echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                             echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
                             if ($i % 3 == 0 || $i == count($list)) {
@@ -334,9 +338,9 @@ switch ($src) {
                             mysqli_close($dbc);
                             echo "<h4>$$price2 </h4></div>";
                             echo "<div class='snipcart-details top_brand_home_details'><form action='#' method='post'><fieldset>";
-                            echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='business' value=' '>";
-                            echo "<input type='hidden' name='item_name' value='$name'><input type='hidden' name='amount' value='$price'>";
-                            echo "<input type='hidden' name='discount_amount' value='1.00'><input type='hidden' name='currency_code' value='USD'>";
+                            echo "<input type='hidden' name='cmd' value='_cart'><input type='hidden' name='add' value='1'><input type='hidden' name='shipping' value='$id2'>";
+                            echo "<input type='hidden' name='item_name' value='$name2'><input type='hidden' name='amount' value='$price2'>";
+                            echo "<input type='hidden' name='shipping2' value='$image2'><input type='hidden' name='currency_code' value='USD'>";
                             echo "<input type='hidden' name='return' value=' '><input type='hidden' name='cancel_return' value=' '>";
                             echo "<input type='submit' name='submit' value='Add to cart' class='button'></fieldset></form></div></div></figure></div></div></div>";
                             if ($i2 % 3 == 0 || $i2 == count($list2)) {
@@ -472,7 +476,7 @@ switch ($src) {
             <div class="col-md-3 w3_footer_grid">
                 <h3>Profile</h3>
                 <ul class="info">
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.php">My Cart</a></li>
+
                     <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.php">Login</a></li>
                     <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.php">Create Account</a>
                     </li>

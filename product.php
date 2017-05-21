@@ -191,7 +191,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                         </ul>
                     </li>
-                    <li><a href="checkout.php">My Cart</a></li>
+                    <?php
+                    session_start();
+                    if (isset($_SESSION['user'])) {
+                        echo '<li><a href="cart.php">My Cart</a></li>';
+                    }
+                    ?>
                     <?php
                     if (isset($_SESSION['user'])) {
                         echo '<li><a href="recent.php"><span>User Activity</span></a></li>';
@@ -231,8 +236,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 }
 
-                $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id .
-                    " GROUP BY product_id;";
+                $fetch_reviews = "SELECT round(avg(rating)) AS Rating FROM marketplace.ratings WHERE product_id = " . $prod_id . " AND rating > 0 GROUP BY product_id;";
 
                 // echo $fetch_reviews;
 
@@ -297,6 +301,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <input type="hidden" name="amount" value="<?php echo $price; ?>">
                                 <input type="hidden" name="discount_amount" value="0.00">
                                 <input type="hidden" name="currency_code" value="USD">
+                                <input type='hidden' name='shipping' value="<?php echo $id; ?>">
+                                <input type='hidden' name='shipping2' value="<?php echo $image; ?>">
                                 <input type="hidden" name="return" value=" ">
                                 <input type="hidden" name="cancel_return" value=" ">
 
@@ -430,7 +436,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="col-md-3 w3_footer_grid">
                 <h3>Profile</h3>
                 <ul class="info">
-                    <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.php">My Cart</a></li>
+
                     <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="login.php">Login</a></li>
                     <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="registered.php">Create Account</a>
                     </li>
