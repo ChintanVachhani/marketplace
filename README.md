@@ -3,3 +3,9 @@ A market place web application that collects products or services from multiple 
 It uses - 
 - PHP
 - MySQL
+- Javascript
+- HTML 5
+- CSS 3
+- AJAX
+- Bootstrap
+- jQuery
